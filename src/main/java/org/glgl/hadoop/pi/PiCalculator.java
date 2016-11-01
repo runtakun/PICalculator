@@ -11,6 +11,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 public class PiCalculator {
     public static class DistanceMapper extends Mapper<Object, Text, Text, LongWritable> {
@@ -21,13 +22,13 @@ public class PiCalculator {
 
         @Override
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-            String[] values = value.toString().split(",");
+            StringTokenizer tokenizer = new StringTokenizer(value.toString(), ",");
 
             double total = 0.0;
 
-            for (String val : values) {
-                float f = Float.parseFloat(val);
-                total += f * f;
+            while (tokenizer.hasMoreTokens()) {
+                double d = Double.parseDouble(tokenizer.nextToken());
+                total += d * d;
             }
 
             if (Math.sqrt(total) >= 1.0) {
