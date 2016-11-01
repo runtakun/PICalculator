@@ -55,7 +55,7 @@ public class PiCalculator {
 
     public static void main(String... args) throws IOException, ClassNotFoundException, InterruptedException {
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "word count");
+        Job job = Job.getInstance(conf, "calculate pi");
         job.setJarByClass(DistanceMapper.class);
         job.setMapperClass(DistanceMapper.class);
         job.setCombinerClass(LongSumReducer.class);
